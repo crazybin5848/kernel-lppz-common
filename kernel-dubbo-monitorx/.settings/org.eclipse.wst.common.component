@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="kernel-dubbo-monitorx">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="kernel-lppz-search-3.6.5-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kernel-lppz-search/kernel-lppz-search">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kernel-lppz-util-3.6.5-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kernel-lppz-util/kernel-lppz-util">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="lppz-diamond-client-3.6.5-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/lppz-diamond-client/lppz-diamond-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kernel-dubbo-common-3.6.5-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kernel-dubbo-common/kernel-dubbo-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kernel-lppz-core-3.6.5-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kernel-lppz-core/kernel-lppz-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="kernel-dubbo-monitorx"/>
+        <property name="java-output-path" value="/kernel-dubbo-monitorx/target/classes"/>
+    </wb-module>
+</project-modules>

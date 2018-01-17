@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean id="springUtil" class="com.lppz.webauth.shiro.utils.SpringUtil" />
+	
+	<!-- 基于Form表单的身份验证过滤器 -->
+	<bean id="extFormAuthenticationFilter"
+		class="com.lppz.webauth.shiro.filter.ExtFormAuthenticationFilter">
+		<property name="usernameParam" value="username" />
+		<property name="passwordParam" value="password" />
+		<property name="rememberMeParam" value="rememberMe" />
+		<property name="loginUrl" value="/login.jsp" />
+	</bean>
+	
+	<bean id="anyRolesFilter"
+		class="com.lppz.webauth.shiro.filter.AnyRolesFilter">
+		<property name="unauthorizedUrl" value="/pages/unauthorized.jsp" />
+		<property name="loginUrl" value="/login.jsp" />
+	</bean>	
+
+	<bean id="extPermissionsAuthorizationFilter"
+		class="com.lppz.webauth.shiro.filter.ExtPermissionsAuthorizationFilter">
+		<property name="unauthorizedUrl" value="/pages/unauthorized.jsp" />
+		<property name="loginUrl" value="/login.jsp" />
+	</bean>	
+		
+	<bean id="sessionValidationFilter" class="com.lppz.webauth.shiro.filter.SessionValidationFilter">
+		<property name="loginUrl" value="/auth/account/login" />
+	</bean>
+
+	<bean id="sessionListener" class="com.lppz.webauth.shiro.OmsSessionListener">
+	</bean>
+
+	<bean id="permissionResolver" class="com.lppz.webauth.shiro.permission.BitAndWildPermissionResolver">
+	</bean>
+		
+	<!-- 会话Cookie 模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="sid" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="-1" /><!-- 浏览器关闭时失效此Cookie -->
+	</bean>
+
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="2592000" /><!-- 30天 -->
+	</bean>
+
+	<!-- rememberMe管理器 cipherKey是加密rememberMe Cookie的密钥；默认AES算法-->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>	
+	
+	<bean id="authorizer" class="org.apache.shiro.authz.ModularRealmAuthorizer">
+		<property name="permissionResolver" ref="permissionResolver" />
+	</bean>
+	
+	<!-- 会话管理器-->
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="10800000" /><!-- 1800000秒=30分钟 会话管理器 60000毫秒=1分钟 3600000毫秒=1小时 10800000毫秒=3小时-->
+		<property name="deleteInvalidSessions" value="true" />
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+		<property name="sessionIdCookieEnabled" value="true" />
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
+		<property name="sessionListeners" ref="sessionListener" />
+		
+		<!-- 
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<property name="sessionDAO" ref="sessionDAO" /> 
+		-->
+	</bean>
+
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="authorizer" ref="authorizer" />
+		
+		<!-- 
+		自定义realm 
+		一定要放在securityManager.authorizer赋值之后（因为调用setRealms会将realms设置给authorizer，
+		并给各个Realm设置permissionResolver和rolePermissionResolver）
+		 -->
+		<property name="realm" ref="realmProvider" />		
+		<property name="rememberMeManager" ref="rememberMeManager"/>
+	</bean>
+	
+	<bean id="webUserService" class="com.lppz.webauth.service.impl.WebUserServiceImpl">
+	</bean>	
+	
+	<bean id="realmProvider" class="com.lppz.webauth.shiro.RealmProvider">
+		<property name="cachingEnabled" value="false" />
+		<property name="webUserService" ref="webUserService" />
+	</bean>		
+
+	<bean id="initAuthDataBean" class="com.lppz.webauth.shiro.init.InitAuthDataBean" />
+
+	<!-- Shiro 的Web过滤器 -->
+	<bean id="shiroFilter" class="com.lppz.webauth.shiro.filter.OmsShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/auth/account/login" />
+		<property name="successUrl" value="/auth/account/authenticated" />
+		<property name="unauthorizedUrl" value="/auth/account/unauthorized" />
+	</bean>	
+			
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
+	<bean id="pathFilter" class="com.lppz.webauth.filter.PathFilter"/>  
+</beans>

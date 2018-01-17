@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lppz.oms.persist.UserMapper" >
+  <resultMap id="UserResultMap" type="com.lppz.oms.api.dto.UserDto" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="userpwd" property="userpwd" jdbcType="VARCHAR" />
+    <result column="authuserid" property="authuserid" jdbcType="VARCHAR" />
+	<result column="username" property="username" jdbcType="VARCHAR" />
+	<result column="employeeno" property="employeeno" jdbcType="VARCHAR" />
+	<result column="email" property="email" jdbcType="VARCHAR" />
+	<result column="status" property="status" jdbcType="VARCHAR" />
+	<result column="creator" property="creator" jdbcType="VARCHAR" />
+	<result column="createtime" property="createtime" jdbcType="VARCHAR" />
+	<result column="parentuserid" property="parentuserid" jdbcType="VARCHAR" />
+	<result column="updator" property="updator" jdbcType="VARCHAR" />
+	<result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="PermissionResultMap" type="com.lppz.oms.api.dto.PermissionDto" >
+    <id column="authpermid" property="authpermid" jdbcType="VARCHAR" />
+    <result column="permcode" property="permcode" jdbcType="VARCHAR" />
+    <result column="menuname" property="menuname" jdbcType="VARCHAR" />
+    <result column="menuurl" property="menuurl" jdbcType="VARCHAR" />
+    <result column="parentcode" property="parentcode" jdbcType="VARCHAR" />
+    <result column="permtype" property="permtype" jdbcType="VARCHAR" />
+    <result column="permindex" property="permindex" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, userpwd
+  </sql>
+  <select id="findUser" resultMap="UserResultMap" parameterType="java.lang.String" >
+    select * from authuser
+    where username = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="findUserById" resultMap="UserResultMap" parameterType="java.lang.String" >
+    select * from authuser
+    where userid = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findRoles" resultType="java.lang.String" parameterType="java.lang.String" >
+    select r.rolecode as rolecode from authrole as r 
+				join authuserrolerel as u2r on r.rolecode = u2r.authroleid
+				join authuser as u on u.userid = u2r.authuserid where u.userid = #{userId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findRoleAndMenu" resultType="java.util.Map" parameterType="java.lang.String" >
+    select distinct r.rolecode as rolecode, p.menuurl as menuurl from authpermission as p 
+				join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+				join authrole as r on r.rolecode = p2r.authroleid 
+				join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+				join authuser as u on u.userid = u2r.authuserid where p.menuurl != '/xxx/xx/xx.jsp'  order by menuurl
+  </select>
+  
+  <select id="findPermissionAndMenu" resultType="java.util.Map" parameterType="java.lang.String" >
+    select p.permcode as permcode, p.menuurl as menuurl from authpermission as p
+				 where p.visible = '1' or p.visible = '3'
+  </select>
+  
+  <select id="findPermissions" resultType="java.lang.String" parameterType="java.lang.String" >
+    select distinct p.permcode as permcode from authpermission as p 
+		 join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		 join authrole as r on r.rolecode = p2r.authroleid 
+		 join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		 join authuser as u on u.userid = u2r.authuserid  where u.userid = #{userId,jdbcType=VARCHAR}
+		 and p.permcode != '' 
+  </select>
+  
+  <select id="findPermissionsOld" resultType="java.lang.String" parameterType="java.lang.String" >
+    select distinct p.permcode as permcode from authpermission as p 
+		 join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		 join authrole as r on r.rolecode = p2r.authroleid 
+		 join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		 join authuser as u on u.userid = u2r.authuserid  where u.userid = #{userId,jdbcType=VARCHAR}
+		 and p.permcode != '' 
+	 union 
+	 select distinct p.permcode as permcode from authpermission as p 
+	 where p.permcode in ( 
+		 select distinct p.parentcode as parentcode from authpermission as p 
+		 join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		 join authrole as r on r.rolecode = p2r.authroleid 
+		 join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		 join authuser as u on u.userid = u2r.authuserid  where u.userid = #{userId,jdbcType=VARCHAR}
+		 and p.permcode != '' ) 
+	 union 
+	 select distinct p.permcode as permcode  
+	 from authpermission as p 
+	 where p.permcode in ( 
+		 select distinct p.parentcode as parentcode  
+		 from authpermission as p 
+		 where p.permcode in ( 
+		 select distinct p.parentcode as parentcode from authpermission as p 
+		 join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		 join authrole as r on r.rolecode = p2r.authroleid 
+		 join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		 join authuser as u on u.userid = u2r.authuserid  where u.userid = #{userId,jdbcType=VARCHAR}
+		 and p.permcode != '' ))
+  </select>
+  
+   <select id="findPermissionsWithPermtype" resultMap="PermissionResultMap" parameterType="java.lang.String" >
+     select distinct p.permcode as permcode, p.parentcode as parentcode, p.menuname as menuname, p.menuurl as menuurl, p.permtype as permtype, p.permindex as permindex,p.visible as visible
+	from authpermission as p 
+		join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		join authrole as r on r.rolecode = p2r.authroleid 
+		join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		join authuser as u on u.userid = u2r.authuserid where u.userid = #{userid,jdbcType=VARCHAR}
+		and p.permcode != '' and p.visible = '1'
+	union 
+	select distinct p.permcode as permcode, p.parentcode as parentcode, p.menuname as menuname, p.menuurl as menuurl, p.permtype as permtype, p.permindex as permindex  ,p.visible as visible
+	 from authpermission as p
+     where p.visible = '2'
+	 order by permindex
+  </select>
+  
+   <select id="findPermissionsWithPermtypeOld" resultMap="PermissionResultMap" parameterType="java.lang.String" >
+    select distinct p.permcode as permcode, p.parentcode as parentcode, p.menuname as menuname, p.menuurl as menuurl, p.permtype as permtype, p.permindex as permindex
+	from authpermission as p 
+		join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		join authrole as r on r.rolecode = p2r.authroleid 
+		join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		join authuser as u on u.userid = u2r.authuserid where u.userid = #{userid,jdbcType=VARCHAR}
+		and p.permcode != '' and p.visible = '1' or p.visible = '2' 
+	union 
+	select distinct p.permcode as permcode, p.parentcode as parentcode, p.menuname as menuname, p.menuurl as menuurl, p.permtype as permtype, p.permindex as permindex 
+	from authpermission as p 
+	where p.permcode in (
+		 select distinct p.parentcode as parentcode from authpermission as p 
+		 join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		 join authrole as r on r.rolecode = p2r.authroleid 
+		 join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		 join authuser as u on u.userid = u2r.authuserid  where u.userid = #{userid,jdbcType=VARCHAR}
+		 and p.permcode != '' 
+		 and p.visible = '1' or p.visible = '2' ) 
+		 and p.visible = '1' or p.visible = '2' 
+	 union 
+	 select distinct p.permcode as permcode, p.parentcode as parentcode, p.menuname as menuname, p.menuurl as menuurl, p.permtype as permtype, p.permindex as permindex  
+	 from authpermission as p 
+	 where p.permcode in ( 
+	 select distinct p.parentcode as parentcode 
+	 from authpermission as p 
+	 where p.permcode in ( 
+		 select distinct p.parentcode as parentcode from authpermission as p 
+		 join authrolepermissionrel as p2r on p.permcode = p2r.permcode 
+		 join authrole as r on r.rolecode = p2r.authroleid 
+		 join authuserrolerel as u2r on r.rolecode = u2r.authroleid 
+		 join authuser as u on u.userid = u2r.authuserid  where u.userid = #{userid,jdbcType=VARCHAR}
+		 and p.permcode != '' 
+		 and p.visible = '1' or p.visible = '2' )) 
+	 order by permindex
+  </select>
+  
+ </mapper>

@@ -1,0 +1,48 @@
+{
+  "template" : "deliveryorder-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+        "orderId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "seq" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "result" : {  
+            "type" : "string",  
+            "index" : "ik"  
+          },  
+          "resultFlag" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "send" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "receive" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "receiveTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },  
+          "outSys" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+hive1: !!com.lppz.hive.bean.HiveSqoopBean {
+configBean: !!com.lppz.hive.bean.HiveSqoopConfigBean {
+ rdbmsjdbcUrl: 'jdbc:mysql://172.16.11.1:3306/omso2o?useUnicode=true&characterEncoding=UTF8',
+ rdbmsjdbcUser: 'o2o_ro',
+ rdbmsjdbcPasswd: 'LppzAliyuncentos!@',
+ rdbmsdbDriver: 'com.mysql.jdbc.Driver',
+ hive2jdbcUrl: 'jdbc:hive2://10.8.102.167:10000/hivedb',
+ hive2jdbcUser: 'hadoop',
+ hive2jdbcPasswd: 'hadoop',
+ sqoopServerUrl: 'http://10.8.102.167:12000/sqoop/',
+ sqoopHdfsUrl: 'hdfs://10.8.102.167:9000/'
+},
+sourceList: [{hiveschema: "hivetest",hivetableName: "busi_orderhivepar",sqltableName: "busi_order",pk: "id",sql: "select * from busi_order where ${CONDITIONS} and id>=#param1# and id<=#param2#",mode: "true",hpcList: [{col: "ds",type: "string",value: "#partionVal#"}]}]
+#sourceList: [{tableName: "busi_order",pk: "id",sql: "WHERE d_cratetime >= '2016-08-31' and d_cratetime < '2016-09-01'or d_modifiedtime >= '2016-08-31' and d_modifiedtime < '2016-09-01'",mode: "FALSE",ddl: ""}]
+}
+}

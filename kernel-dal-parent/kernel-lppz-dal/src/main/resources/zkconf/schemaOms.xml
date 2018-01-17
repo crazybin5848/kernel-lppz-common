@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+	<schema name="OMSDB" checkSQLschema="false" sqlMaxLimit="100">
+		<table name="orderlineattributes" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_orderline_promotion_info" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="orderlinedata_locationroles" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="orderlinequantities" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_refund_only_data" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_return_package_data" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="returnorderlines" dataNode="dnomsext" primaryKey="ID" />
+		<table name="temp_order_line" dataNode="dnomsedb" primaryKey="ID" />
+		<table name="temp_payment_info" dataNode="dnomsedb" primaryKey="ID" />
+		<table name="orders" dataNode="dnomsext" primaryKey="ID" />
+		<table name="busi_lack_order" dataNode="dnomsedb" primaryKey="ID" />
+		<table name="busi_omsinterfacemutual_wms_data" dataNode="dnomsedb"
+			primaryKey="ID" />
+		<table name="busi_merge_order_pool_data" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_omsinterfacemutual_data" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_lp_deliverye_data" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_promotion_info" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="orderdata_srlocationids" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="orderlines" dataNode="dnomsext" primaryKey="ID" />
+		<table name="paymentinfo" dataNode="dnomsext" primaryKey="ID" />
+		<table name="returns" dataNode="dnomsext" primaryKey="ID" />
+		<table name="shipments" dataNode="dnomsext" primaryKey="ID" />
+		<table name="temp_order_line_promotion_info" dataNode="dnomsedb"
+			primaryKey="ID" />
+		<table name="temp_return_order_line" dataNode="dnomsedb"
+			primaryKey="ID" />
+		<table name="temp_order" dataNode="dnomsedb" primaryKey="ID" />
+		<table name="temp_return_order" dataNode="dnomsedb" primaryKey="ID" />
+		<table name="catch_order_err_msg" dataNode="dnomsedb"
+			primaryKey="ID" />
+		<table name="busi_lp_deliverye_line_data_b2b" dataNode="dnomsext"
+			primaryKey="ID" />
+		<table name="busi_lp_deliverye_line_data" dataNode="dnomsext"
+			primaryKey="ID" />
+	</schema>
+	<dataNode name="dnomsext" dataHost="omsext" database="omsext" />
+	<dataNode name="dnomsedb" dataHost="omsedb" database="omsedb" />
+
+	<dataHost name="omsext" maxCon="1000" minCon="100" balance="0"
+		dbType="mysql" dbDriver="hikariJdbc" connectionTimeout="200000"
+		autoCommit="true" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+		idleTimeout="180000" maxLifetime="360000">
+		<heartbeat></heartbeat>
+		<writeHost host="hostM1"
+			url="jdbc:mysql://10.8.202.215:3308/omsext?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true"
+			user="root" password="a5AF2WQvcboO6"></writeHost>
+	</dataHost>
+	<dataHost name="omsedb" maxCon="1000" minCon="100" balance="0"
+		dbType="mysql" dbDriver="hikariJdbc" connectionTimeout="200000"
+		autoCommit="true" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+		idleTimeout="180000" maxLifetime="360000">
+		<heartbeat></heartbeat>
+		<writeHost host="hostM1"
+			url="jdbc:mysql://10.8.202.215:3309/omsedb?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true"
+			user="root" password="x3s5.EUHDdpb2"></writeHost>
+	</dataHost>
+</mycat:schema>

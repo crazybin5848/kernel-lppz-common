@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+	default-autowire="byName" default-lazy-init="false">
+     
+    <bean id="ds" class="com.lppz.core.datasource.LppzBasicDataSource"
+		destroy-method="close">
+	<property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" />
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="url">jdbc:mysql://10.6.30.32:7066/TESTDB</prop>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+			</props>
+		</property>
+		<property name="dataSourceJNDI" value="" />
+		<property name="autoCommit" value="false" />
+		<property name="connectionTimeout" value="200000" />
+		<property name="idleTimeout" value="180000" />
+		<property name="maxLifetime" value="360000" />
+		<property name="maximumPoolSize" value="20" />
+		<property name="minimumIdle" value="10" />
+	</bean>
+</beans>

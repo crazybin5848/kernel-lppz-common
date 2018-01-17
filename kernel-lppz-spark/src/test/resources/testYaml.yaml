@@ -1,0 +1,527 @@
+!!com.lppz.spark.bean.SparkHiveSqlBean
+configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+  rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+  rdbmsjdbcUser: oms_ro, schema: omsext}
+mysqlBean: {colArray: null, colList: orderid, colTypeInt: true, numPartitions: 50,
+  offset: null, partitionColumn: id, relateKey: '`orderid`', sql: select * from order_sharding where createtime<#maxdate# and createtime>=#mindate#,
+  tableName: '`order_sharding`', total4Once: 500000}
+mysqsqlUseMain: false
+sourcebean:
+  ddl: null
+  hdfsUrl: null
+  hiveschema: omsext
+  hivetableName: omsextorderSharding
+  hpcList:
+  - {col: ds, orginalCol: null, type: string, value: '#month#'}
+  mode: true
+sparkMapbean:
+  orderid:
+    configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+      rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+      rdbmsjdbcUser: oms_ro, schema: omsext}
+    mysqlBean: {colArray: null, colList: 'id,orderid,outorderid', colTypeInt: true,
+      numPartitions: 50, offset: null, partitionColumn: null, relateKey: '`orderid`',
+      sql: null, tableName: '`orders`', total4Once: 500000}
+    mysqsqlUseMain: false
+    sourcebean:
+      ddl: null
+      hdfsUrl: null
+      hiveschema: omsext
+      hivetableName: omsextorders
+      hpcList:
+      - {col: ds, orginalCol: null, type: string, value: '#month#'}
+      mode: true
+    sparkMapbean:
+      id_6:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`myorder`', sql: null,
+          tableName: '`paymentinfo`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextpaymentinfo
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      id_4:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: id, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`order`', sql: null, tableName: '`returns`',
+          total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextreturns
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean:
+          id:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`myreturn`', sql: null,
+              tableName: '`returnorderlines`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextreturnorderlines
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+          id_2:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: trackingid, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`myreturn`', sql: null,
+              tableName: '`busi_return_package_data`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextbusiReturnPackageData
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean:
+              trackingid:
+                configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+                  rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+                  rdbmsjdbcUser: oms_ro, schema: omsext}
+                mysqlBean: {colArray: null, colList: id, colTypeInt: true, numPartitions: 50,
+                  offset: null, partitionColumn: null, relateKey: '`expresscode`',
+                  sql: null, tableName: '`busi_return_pick_order`', total4Once: 500000}
+                mysqsqlUseMain: false
+                sourcebean:
+                  ddl: null
+                  hdfsUrl: null
+                  hiveschema: omsext
+                  hivetableName: omsextbusiReturnPickOrder
+                  hpcList:
+                  - {col: ds, orginalCol: null, type: string, value: '#month#'}
+                  mode: true
+                sparkMapbean:
+                  id:
+                    configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+                      rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+                      rdbmsjdbcUser: oms_ro, schema: omsext}
+                    mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+                      offset: null, partitionColumn: null, relateKey: '`orderid`',
+                      sql: null, tableName: '`busi_return_pick_orderline`', total4Once: 500000}
+                    mysqsqlUseMain: false
+                    sourcebean:
+                      ddl: null
+                      hdfsUrl: null
+                      hiveschema: omsext
+                      hivetableName: omsextbusiReturnPickOrderline
+                      hpcList:
+                      - {col: ds, orginalCol: null, type: string, value: '#month#'}
+                      mode: true
+                    sparkMapbean: {}
+          id_1:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`myreturn`', sql: null,
+              tableName: '`busi_refund_only_data`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextbusiRefundOnlyData
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+      id_5:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`myorder`', sql: null,
+          tableName: '`busi_promotion_info`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextbusiPromotionInfo
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      id:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: id, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`myorder`', sql: null,
+          tableName: '`orderlines`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextorderlines
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean:
+          id:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`orderline`', sql: null,
+              tableName: '`orderlinequantities`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextorderlinequantities
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+          id_3:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`orderline`', sql: null,
+              tableName: '`busi_orderline_promotion_info`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextbusiOrderlinePromotionInfo
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+          id_2:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`srcid`', sql: null,
+              tableName: '`orderlinedata_locationroles`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextorderlinedataLocationroles
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+          id_1:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`orderline`', sql: null,
+              tableName: '`orderlineattributes`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextorderlineattributes
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+      outorderid_1:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+        mysqlBean: {colArray: null, colList: id, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`outorderid`', sql: null,
+          tableName: '`temp_return_order`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsedbtempReturnOrder
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      id_3:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: id, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`myorder`', sql: null,
+          tableName: '`busi_lp_deliverye_data`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextbusiLpDeliveryeData
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean:
+          id:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`mydelivery`', sql: null,
+              tableName: '`busi_lp_deliverye_line_data`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextbusiLpDeliveryeLineData
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+          id_1:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: oms_ro, schema: omsext}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`mydelivery`', sql: null,
+              tableName: '`busi_lp_deliverye_line_data_b2b`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsextbusiLpDeliveryeLineDataB2b
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+      id_2:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`srcid`', sql: null, tableName: '`orderdata_srlocationids`',
+          total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextorderdataSrlocationids
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      id_1:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`orderfk`', sql: null,
+          tableName: '`shipments`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextshipments
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      orderid_3:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`orderid`', sql: null,
+          tableName: '`busi_lack_order`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsedbbusiLackOrder
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      orderid_2:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`orderid`', sql: null,
+          tableName: '`busi_omsinterfacemutual_wms_data`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsedbbusiOmsinterfacemutualWmsData
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      orderid:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`orderid`', sql: null,
+          tableName: '`busi_omsinterfacemutual_data`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextbusiOmsinterfacemutualData
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}
+      outorderid:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+        mysqlBean: {colArray: null, colList: 'omsid,outorderid', colTypeInt: true,
+          numPartitions: 50, offset: null, partitionColumn: null, relateKey: '`outorderid`',
+          sql: null, tableName: '`temp_order`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsedbtempOrder
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean:
+          omsid:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+            mysqlBean: {colArray: null, colList: id, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`myorder`', sql: null,
+              tableName: '`temp_order_line`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsedbtempOrderLine
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean:
+              id:
+                configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+                  rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+                  rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+                mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+                  offset: null, partitionColumn: null, relateKey: '`orderline`', sql: null,
+                  tableName: '`temp_order_line_promotion_info`', total4Once: 500000}
+                mysqsqlUseMain: false
+                sourcebean:
+                  ddl: null
+                  hdfsUrl: null
+                  hiveschema: omsext
+                  hivetableName: omsedbtempOrderLinePromotionInfo
+                  hpcList:
+                  - {col: ds, orginalCol: null, type: string, value: '#month#'}
+                  mode: true
+                sparkMapbean: {}
+              id_1:
+                configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+                  rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+                  rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+                mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+                  offset: null, partitionColumn: null, relateKey: '`tempreturnorder`',
+                  sql: null, tableName: '`temp_return_order_line`', total4Once: 500000}
+                mysqsqlUseMain: false
+                sourcebean:
+                  ddl: null
+                  hdfsUrl: null
+                  hiveschema: omsext
+                  hivetableName: omsedbtempReturnOrderLine
+                  hpcList:
+                  - {col: ds, orginalCol: null, type: string, value: '#month#'}
+                  mode: true
+                sparkMapbean: {}
+          omsid_1:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`myorder`', sql: null,
+              tableName: '`temp_payment_info`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsedbtempPaymentInfo
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+          outorderid:
+            configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+              rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.215:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+              rdbmsjdbcUser: omx_ro_233, schema: omsedb}
+            mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+              offset: null, partitionColumn: null, relateKey: '`outorderid`', sql: null,
+              tableName: '`catch_order_err_msg`', total4Once: 500000}
+            mysqsqlUseMain: false
+            sourcebean:
+              ddl: null
+              hdfsUrl: null
+              hiveschema: omsext
+              hivetableName: omsedbcatchOrderErrMsg
+              hpcList:
+              - {col: ds, orginalCol: null, type: string, value: '#month#'}
+              mode: true
+            sparkMapbean: {}
+      orderid_1:
+        configBean: {rdbmsdbDriver: com.mysql.jdbc.Driver, rdbmsjdbcPasswd: Lppz!1234@mysql,
+          rdbmsjdbcUrl: 'jdbc:mysql://10.8.202.231:3307/#schema#?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull',
+          rdbmsjdbcUser: oms_ro, schema: omsext}
+        mysqlBean: {colArray: null, colList: null, colTypeInt: true, numPartitions: 50,
+          offset: null, partitionColumn: null, relateKey: '`orderid`', sql: null,
+          tableName: '`busi_merge_order_pool_data`', total4Once: 500000}
+        mysqsqlUseMain: false
+        sourcebean:
+          ddl: null
+          hdfsUrl: null
+          hiveschema: omsext
+          hivetableName: omsextbusiMergeOrderPoolData
+          hpcList:
+          - {col: ds, orginalCol: null, type: string, value: '#month#'}
+          mode: true
+        sparkMapbean: {}

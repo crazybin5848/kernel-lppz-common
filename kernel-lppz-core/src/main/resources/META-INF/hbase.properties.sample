@@ -1,0 +1,4 @@
+hbase.zookeeper.property.clientPort=2181
+hbase.zookeeper.quorum=10.6.30.42
+hbase.rpc.timeout=100000000
+hbase.client.scanner.caching=20

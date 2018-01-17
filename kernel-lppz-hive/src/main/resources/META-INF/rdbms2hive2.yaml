@@ -1,0 +1,16 @@
+{
+hive1: !!com.lppz.hive.bean.HiveSqoopBean {
+configBean: !!com.lppz.hive.bean.HiveSqoopConfigBean {
+ rdbmsjdbcUrl: 'jdbc:mysql://10.6.30.35:3306/test?useUnicode=true&characterEncoding=UTF8',
+ rdbmsjdbcUser: 'root',
+ rdbmsjdbcPasswd: 'KTqHDMg8r3q1w',
+ rdbmsdbDriver: 'com.mysql.jdbc.Driver',
+ hive2jdbcUrl: 'jdbc:hive2://10.6.30.37:10000/hivedb',
+ hive2jdbcUser: 'hadoop',
+ hive2jdbcPasswd: '111111',
+ sqoopServerUrl: 'http://10.6.30.37:12000/sqoop/',
+ sqoopHdfsUrl: 'hdfs://10.6.30.37:9000/'
+},
+sourceList: [{hiveschema: "hivetest",hivetableName: "omsstockhive",sqltableName: "omsstock",pk: "id",sql: "select * from omsstock where ${CONDITIONS} and id>=#param1# and id<=#param2#",mode: "true"}]
+}
+}

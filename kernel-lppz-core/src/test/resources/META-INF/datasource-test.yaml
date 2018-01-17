@@ -1,0 +1,33 @@
+{
+master1: !!com.lppz.core.datasource.LppzBasicDataSource {
+dataSourceClassName: 'com.mysql.jdbc.jdbc2.optional.MysqlDataSource',
+dataSourceProperties: {url: 'jdbc:mysql://192.168.37.245:3306/db1',user: 'root',password: 'KTqHDMg8r3q1w'},
+dataSourceJNDI: ,
+isCobar: 'false',
+configLocation: 'classpath:mybatis-config.xml',
+mapperLocation: 'classpath:123/*.xml',
+baseScanPackge: 'com.lppz.core.dao.d1',
+autoCommit: 'true',
+connectionTimeout: '200000',
+idleTimeout: '180000',
+maxLifetime: '360000',
+maximumPoolSize: '10000',
+minimumIdle: '5000'
+},
+master2: !!com.lppz.core.datasource.LppzBasicDataSource {
+dataSourceClassName: 'com.mysql.jdbc.jdbc2.optional.MysqlDataSource',
+dataSourceProperties: {url: 'jdbc:mysql://192.168.37.246:3306/db2',user: 'root',password: 'KTqHDMg8r3q1w'},
+dataSourceJNDI: ,
+isCobar: 'false',
+configLocation: 'classpath:mybatis-config.xml',
+mapperLocation: 'classpath:456/*.xml',
+baseScanPackge: 'com.lppz.core.dao.d2',
+autoCommit: 'true',
+connectionTimeout: '200000',
+idleTimeout: '180000',
+maxLifetime: '360000',
+maximumPoolSize: '10000',
+minimumIdle: '5000'
+}
+}
+

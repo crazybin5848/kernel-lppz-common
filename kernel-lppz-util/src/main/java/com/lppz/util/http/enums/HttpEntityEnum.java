@@ -1,0 +1,2 @@
+package com.lppz.util.http.enums;
+public enum HttpEntityEnum{InputStreamEntityHandler,UrlEncodedFormEntityHandler,MultipartEntityHandler}

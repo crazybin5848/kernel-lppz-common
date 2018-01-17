@@ -1,0 +1,22 @@
+!!com.lppz.mongoapi.bean.MongoConfigMapBean
+map:
+  app:
+    connectTimeout: 25000
+    db: lppzappsns
+    maxConnectionLifeTime: 150000
+    maxWaitTime: 300000
+    poolSize: 200
+    serverAddress:
+    - {port: '50000', host: 192.168.37.242}
+    socketTimeout: 100000
+    tables: [sns]
+  pos:
+    connectTimeout: 25000
+    db: apppos
+    maxConnectionLifeTime: 150000
+    maxWaitTime: 300000
+    poolSize: 200
+    serverAddress:
+    - {port: '50000', host: 192.168.37.242}
+    socketTimeout: 100000
+    tables: [store]

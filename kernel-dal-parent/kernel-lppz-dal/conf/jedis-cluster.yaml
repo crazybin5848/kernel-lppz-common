@@ -1,0 +1,14 @@
+!!com.lppz.configuration.jedis.JedisClusterYamlBean {
+jedisClusterPool: !!com.lppz.configuration.jedis.JedisClusterPool {
+ maxTotal: 10000,
+ maxIdle: 1000,
+ maxWaitMillis: 100000,
+ testOnBorrow: false,
+ testOnReturn: false,
+ blockWhenExhausted: false,
+ numTestsPerEvictionRun: 100
+},
+jedisClusterNode: [{host: "192.168.37.243",port: 7000},{host: "192.168.37.247",port: 7000},{host: "192.168.37.245",port: 7000},{host: "192.168.37.242",port: 7000},{host: "192.168.37.244",port: 7000},{host: "192.168.37.246",port: 7000}],
+timeout: 1000000,
+maxRedirections: 10
+}

@@ -1,0 +1,117 @@
+!!com.lppz.canal.bean.TableRelationBean
+tables:
+  busi_orderline_promotion_info: {parentKey: orderline, parentTalbeName: orderlines,
+    parentTalbePrimaryKey: id, primaryKey: id, relationKeys: null, schemaName: omsext,
+    tableName: busi_orderline_promotion_info}
+  busi_return_package_data: {parentKey: myreturn, parentTalbeName: returns, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: busi_return_package_data}
+  orderlinedata_locationroles: {parentKey: orderline, parentTalbeName: orderlines,
+    parentTalbePrimaryKey: id, primaryKey: id, relationKeys: null, schemaName: omsext,
+    tableName: orderlinedata_locationroles}
+  busi_merge_order_pool_data: {parentKey: orderid, parentTalbeName: orders, parentTalbePrimaryKey: orderid,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: busi_merge_order_pool_data}
+  busi_return_pick_orderline: {parentKey: orderid, parentTalbeName: busi_return_pick_order,
+    parentTalbePrimaryKey: id, primaryKey: id, relationKeys: null, schemaName: omsext,
+    tableName: busi_return_pick_orderline}
+  busi_lp_deliverye_line_data: {parentKey: mydelivery, parentTalbeName: busi_lp_deliverye_data,
+    parentTalbePrimaryKey: id, primaryKey: id, relationKeys: null, schemaName: omsext,
+    tableName: busi_lp_deliverye_line_data}
+  busi_promotion_info: {parentKey: myorder, parentTalbeName: orders, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: busi_promotion_info}
+  temp_return_order_line: {parentKey: tempreturnorder, parentTalbeName: temp_return_order,
+    parentTalbePrimaryKey: id, primaryKey: id, relationKeys: null, schemaName: omsedb,
+    tableName: temp_return_order_line}
+  temp_payment_info: {parentKey: myorder, parentTalbeName: temp_order, parentTalbePrimaryKey: omsid,
+    primaryKey: id, relationKeys: null, schemaName: omsedb, tableName: temp_payment_info}
+  orderlinequantities: {parentKey: orderline, parentTalbeName: orderlines, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: orderlinequantities}
+  orderdata_srlocationids: {parentKey: srcid, parentTalbeName: orders, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: orderdata_srlocationids}
+  paymentinfo: {parentKey: myorder, parentTalbeName: orders, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: paymentinfo}
+  busi_refund_only_data: {parentKey: myreturn, parentTalbeName: returns, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: busi_refund_only_data}
+  temp_order_line:
+    parentKey: myorder
+    parentTalbeName: temp_order
+    parentTalbePrimaryKey: omsid
+    primaryKey: id
+    relationKeys: [id]
+    schemaName: omsedb
+    tableName: temp_order_line
+  busi_omsinterfacemutual_data: {parentKey: orderid, parentTalbeName: orders, parentTalbePrimaryKey: orderid,
+    primaryKey: id, relationKeys: null, schemaName: omsedb, tableName: busi_omsinterfacemutual_data}
+  ordersharding:
+    parentKey: null
+    parentTalbeName: null
+    parentTalbePrimaryKey: null
+    primaryKey: id
+    relationKeys: [orderid]
+    schemaName: omsext
+    tableName: ordersharding
+  returns:
+    parentKey: order
+    parentTalbeName: orders
+    parentTalbePrimaryKey: id
+    primaryKey: id
+    relationKeys: [id]
+    schemaName: omsext
+    tableName: returns
+  catch_order_err_msg: {parentKey: outorderid, parentTalbeName: temp_order, parentTalbePrimaryKey: outorderid,
+    primaryKey: id, relationKeys: null, schemaName: omsedb, tableName: catch_order_err_msg}
+  busi_lp_deliverye_data:
+    parentKey: myorder
+    parentTalbeName: orders
+    parentTalbePrimaryKey: id
+    primaryKey: id
+    relationKeys: [id]
+    schemaName: omsext
+    tableName: busi_lp_deliverye_data
+  temp_return_order: {parentKey: outorderid, parentTalbeName: temp_order, parentTalbePrimaryKey: outorderid,
+    primaryKey: id, relationKeys: null, schemaName: omsedb, tableName: temp_return_order}
+  orderlines:
+    parentKey: myorder
+    parentTalbeName: orders
+    parentTalbePrimaryKey: id
+    primaryKey: id
+    relationKeys: [id]
+    schemaName: omsext
+    tableName: orderlines
+  busi_return_pick_order:
+    parentKey: null
+    parentTalbeName: null
+    parentTalbePrimaryKey: null
+    primaryKey: id
+    relationKeys: [id]
+    schemaName: omsext
+    tableName: busi_return_pick_order
+  shipments: {parentKey: myorder, parentTalbeName: orders, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: shipments}
+  orderlineattributes: {parentKey: orderline, parentTalbeName: orderlines, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: orderlineattributes}
+  returnorderlines: {parentKey: myreturn, parentTalbeName: returns, parentTalbePrimaryKey: id,
+    primaryKey: id, relationKeys: null, schemaName: omsext, tableName: returnorderlines}
+  temp_order_line_promotion_info: {parentKey: orderline, parentTalbeName: temp_order_line,
+    parentTalbePrimaryKey: id, primaryKey: id, relationKeys: null, schemaName: omsedb,
+    tableName: temp_order_line_promotion_info}
+  orders:
+    parentKey: orderid
+    parentTalbeName: ordersharding
+    parentTalbePrimaryKey: orderid
+    primaryKey: id
+    relationKeys: [id, orderid]
+    schemaName: omsext
+    tableName: orders
+  busi_omsinterfacemutual_wms_data: {parentKey: orderid, parentTalbeName: orders,
+    parentTalbePrimaryKey: orderid, primaryKey: id, relationKeys: null, schemaName: omsedb,
+    tableName: busi_omsinterfacemutual_wms_data}
+  busi_lack_order: {parentKey: orderid, parentTalbeName: orders, parentTalbePrimaryKey: orderid,
+    primaryKey: id, relationKeys: null, schemaName: omsedb, tableName: busi_lack_order}
+  temp_order:
+    parentKey: null
+    parentTalbeName: null
+    parentTalbePrimaryKey: null
+    primaryKey: id
+    relationKeys: [id, outorderid, omsid]
+    schemaName: omsedb
+    tableName: temp_order

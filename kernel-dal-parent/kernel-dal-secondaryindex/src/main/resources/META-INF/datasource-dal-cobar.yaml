@@ -1,0 +1,20 @@
+{
+master-member-service: !!com.lppz.core.datasource.LppzBasicDataSource {
+dataSourceClassName: 'com.mysql.jdbc.jdbc2.optional.MysqlDataSource',
+dataSourceProperties: {user: 'root',password: 'root'},
+dataSourceJNDI: ,
+isCobar: 'true',
+schemaName: 'TESTDB',
+catgroup: 'app',
+protocol: 'mysql',
+zkServerAddr: '192.168.37.242:2181,192.168.37.243:2181,192.168.37.244:2181,192.168.37.245:2181,192.168.37.247:2181',
+zkMycatClusterName: 'mycat-cluster-test',
+nodePrefix: 'mycat_fz_',
+autoCommit: 'false',
+connectionTimeout: '20000',
+idleTimeout: '1800000',
+maxLifetime: '3600000',
+maximumPoolSize: '30000',
+minimumIdle: '1000'
+}
+}

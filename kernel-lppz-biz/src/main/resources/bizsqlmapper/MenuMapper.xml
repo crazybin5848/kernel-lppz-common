@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lppz.oms.persist.MenuMapper" >
+	<resultMap id="MenuResultMap" type="com.lppz.oms.api.dto.MenuData" >
+    <result column="permcode" property="menuid" jdbcType="VARCHAR" />
+    <result column="parentcode" property="parentid" jdbcType="VARCHAR" />
+	<result column="menuname" property="menuname" jdbcType="VARCHAR" />
+	<result column="menuurl" property="url" jdbcType="VARCHAR" />
+	<result column="permtype" property="permtype" jdbcType="VARCHAR" />
+	<result column="permindex" property="permindex" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    permcode, parentcode, menuname, menuurl, permtype, permindex
+  </sql>
+  <sql id="Column_List" >
+    p.permcode, p.parentcode, p.menuname, p.menuurl, p.permtype, p.permindex
+  </sql>
+  
+  <select id="findRootMenu" resultMap="MenuResultMap" parameterType="java.lang.String" >
+    select 
+	<include refid="Base_Column_List" />
+    from authpermission
+    where permtype='menu' and parentcode='M-root'
+    order by permindex
+  </select>
+  <select id="findValidateRootMenu" resultMap="MenuResultMap" parameterType="java.lang.String" >
+    select 
+	<include refid="Column_List" />
+    from authpermission p 
+    left join  authrolepermissionrel l  on p.permcode=l.permcode and p.permtype='menu' and p.parentcode='M-root' 
+    left join authuserrolerel ar on l.authroleid=ar.authroleid
+	left join authuser a on ar.authuserid=a.userid 
+	where a.userid=#{userid}
+    order by p.permindex
+  </select>
+  
+   <select id="findFuncMenu" resultMap="MenuResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from authpermission
+    where permtype='menu' and parentcode!='M-root'
+    order by permindex
+  </select>
+  
+   <select id="findValidateFuncMenu" resultMap="MenuResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Column_List" />
+    from authpermission p 
+    left join  authrolepermissionrel l  on p.permcode=l.permcode and p.permtype='menu' and p.parentcode!='M-root' 
+    left join authuserrolerel ar on l.authroleid=ar.authroleid
+	left join authuser a on ar.authuserid=a.userid 
+	where a.userid=#{userid}
+    order by p.permindex
+  </select>
+  
+ </mapper>

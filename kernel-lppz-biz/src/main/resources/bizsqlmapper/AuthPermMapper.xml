@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lppz.oms.persist.AuthPermDao">
+	<select id="findPaged" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT
+		p.authpermid,
+		p.permcode,
+		p.menuurl,
+		p.menuname,
+		p.permtype,
+		p.parentcode
+	FROM
+		authpermission AS p
+	WHERE
+		1 = 1
+	<if test="permcode != null and permcode !=''">
+	AND permcode LIKE concat('%', #{permcode}, '%')
+	</if>
+	<if test="menuname != null and menuname !=''">
+	AND menuname LIKE concat('%', #{menuname}, '%')
+	</if>
+	AND (
+		p.visible = '1' OR p.visible = '3'
+	)
+	ORDER BY authpermid
+	</select>
+	
+	<select id="getPermissionsByPermType" parameterType="java.lang.String" resultType="com.lppz.oms.api.dto.PermissionDto">
+	SELECT
+		p.permcode AS permcode,
+		p.menuname AS menuname,
+		p.parentcode AS parentcode
+	FROM
+		authpermission AS p
+	WHERE
+		(
+			p.visible = '1'
+			OR p.visible = '3'
+		)
+	AND p.permtype = #{permtype}
+	</select>
+	
+	<select id="getByPermCode" parameterType="java.lang.String" resultType="com.lppz.oms.api.dto.PermissionDto">
+	select p.authpermid, p.permcode, p.menuurl, p.menuname, p.permtype, p.parentcode from authpermission p where p.permcode = #{permCode}
+	</select>
+	
+	<select id="getMaxPermindex" parameterType="java.lang.String" resultType="com.lppz.oms.api.dto.PermissionDto">
+	select max(p.permindex) as permindex from authpermission as p where p.permtype = #{permtype}
+	</select>
+	
+	<insert id="createPerm" parameterType="com.lppz.oms.api.dto.PermissionDto">
+	INSERT INTO authpermission (
+		authpermid,
+		permCode,
+		parentCode,
+		menuname,
+		menuurl,
+		permType,
+		id,
+		typecode, tenant, visible,
+		permindex
+	)
+	VALUES
+	(
+		#{authpermid},
+		#{permcode},
+		#{parentcode},
+		#{menuname},
+		#{menuurl},
+		#{permtype},
+		concat('single|PermissionData|', #{authpermid}),
+		'PermissionData','single', '1',
+		#{permindex}
+	)
+	</insert>
+	
+	<delete id="deletePerm" parameterType="java.lang.String">
+	DELETE FROM authpermission WHERE permCode = #{permcode}
+	</delete>
+	
+	<update id="updatePerm" parameterType="com.lppz.oms.api.dto.PermissionDto">
+	UPDATE authpermission
+	SET parentCode = #{parentcode}, menuname = #{menuname}, menuurl = #{menuurl}, permType = #{permtype}
+	WHERE
+		id = concat('single|PermissionData|', #{authpermid})
+	</update>
+</mapper>

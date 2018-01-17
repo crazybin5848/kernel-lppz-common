@@ -1,0 +1,52 @@
+{
+  "template" : "optrecordlog-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+        "funcname" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "optType" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "userId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "userName" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "ipAddr" : {  
+            "type" : "ip",  
+            "index" : "not_analyzed"  
+          },  
+          "beforMsg" : {  
+            "type" : "string",  
+            "analyzer": "ik"  
+          },  
+          "afterMsg" : {  
+            "type" : "string",
+            "analyzer": "ik"  
+          },  
+          "remark" : {  
+        	  "type" : "string",
+        	  "analyzer" : "ik"
+          },  
+          "optTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          }
+      }
+    }
+  }
+}

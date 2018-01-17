@@ -1,0 +1,23 @@
+<configuration>
+   	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d [%-5level][%t][%c][%X{tenant}][%X{requestId}] %m%n</Pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.lppz.oms.services.impl.DefaultUpdateOrderLinePriceService" level="info" />
+	<logger name="com.hybris.oms.rest.resources.OrdersB2CResource" level="info" />
+
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/kernel-dal-monitor-%d{yyyy-MM-dd}.log</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>[%d{HH:mm:ss:SSS}][%t][%5p][%c:%L] %m%n</pattern>
+		</layout>
+	</appender>
+	
+    <root level="info">
+        <appender-ref ref="logfile"/>
+    </root>
+</configuration>

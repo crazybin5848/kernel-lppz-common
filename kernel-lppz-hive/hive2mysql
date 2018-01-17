@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ $# = 1 ] ; then 
+java -server -Xms1G -Xmx2G -XX:MaxNewSize=512M -Xss256k -XX:PermSize=64m -XX:MaxPermSize=128m -XX:+UseParallelGC -DLOG_HOME=logbiz -Djava.ext.dirs=./lib com.lppz.hive.HdfsToMysql $1
+else
+java -server -Xms1G -Xmx2G -XX:MaxNewSize=512M -Xss256k -XX:PermSize=64m -XX:MaxPermSize=128m -XX:+UseParallelGC -DLOG_HOME=logbiz -Djava.ext.dirs=./lib com.lppz.hive.HdfsToMysql
+fi 

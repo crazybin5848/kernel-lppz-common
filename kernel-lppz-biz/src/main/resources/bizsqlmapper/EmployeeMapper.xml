@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lppz.oms.persist.EmployeeMapper">
+	<select id="findEmployees" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+			a.*, c.rolecode AS rolecode, c.rolename AS rolename
+		FROM
+			authuser a LEFT  JOIN authuserrolerel b ON a.authuserid = b.authuserid
+					   LEFT  JOIN authrole c ON b.authroleid = c.authroleid
+		<trim prefix="WHERE" prefixOverrides="AND|OR ">
+			<if test="employeeno != null">
+				and a.employeeno=#{employeeno}
+			</if>
+			<if test="userName != null">
+				and a.userName=#{userName}
+			</if>
+			<if test="status != null">
+				and a.status=#{status}
+			</if>
+			<if test="parentUserId !=null">
+<!-- 				and a.parentuserid=#{parentUserId} -->
+			</if>
+			<if test="roleid !=null">
+				and c.rolecode=#{roleid}
+			</if>
+		</trim>
+	</select>
+
+	<select id="loadEmployee" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		select * from authuser where userid = #{userid}
+	</select>
+
+	<update id="updateStatus" parameterType="java.util.Map">
+		update authuser set
+		status=#{status} where userid=#{userid}
+	</update>
+	<!-- 修改用户密码 -->
+	<update id="changePwd" parameterType="java.util.Map">
+		update authuser set userpwd = #{userpwd}  where userid=#{userid} 
+	</update>
+
+	<update id="addEmployee" parameterType="java.util.Map">
+		insert into
+		authuser(id,employeeno,username,status,authuserid,createtime,creator,userpwd,userid,tenant,typecode)
+		values
+		(#{id},#{employeeno},#{username},#{status},#{authuserid},#{createtime},#{creator},#{userpwd},#{userid},#{tenant},#{typecode})
+	</update>
+	
+	<delete id="removeEmployee"  parameterType="java.lang.String">
+		delete from authuser where userid=#{userid}
+	</delete>
+</mapper>

@@ -1,0 +1,27 @@
+<configuration>
+   	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d [%-5level][%t][%5p][%c:%L] %m%n</Pattern>
+		</encoder>
+	</appender>
+
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/kernel-lppz-mongo-test-%d{yyyy-MM-dd}.log</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>[%d{HH:mm:ss:SSS}][%5p][%c:%L] %m%n</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="kafka" class="com.lppz.util.logback.UnblockedKafkaAppender">
+		<needFilter>true</needFilter>
+		<includingPackage>com.lppz.mirc.redis.dubbo</includingPackage>
+ 	</appender>
+	
+    <root level="info">
+<!--         <appender-ref ref="kafka"/> -->
+        <appender-ref ref="logfile"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

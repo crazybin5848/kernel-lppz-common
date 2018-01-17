@@ -1,0 +1,9 @@
+#!/bin/bash
+targetDir="target/kernel-dal-secondaryindex"
+mvn clean dependency:copy-dependencies -DoutputDirectory=$targetDir/lib -DincludeScope=compile
+mvn install -Dmaven.test.skip=true
+cp -a target/*.jar $targetDir/lib
+mkdir -p $targetDir/conf
+mkdir -p $targetDir/logbiz
+cp -a target/props/* $targetDir/conf
+cp -a microrun microstop $targetDir/

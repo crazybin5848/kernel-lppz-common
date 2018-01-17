@@ -1,0 +1,2 @@
+create table omsdel(id varchar(30),schemaName varchar(30),tableName varchar(50),colName varchar(30),condPk varchar(30),whereCond varchar(255),createTime timestamp) PARTITIONED BY (ds string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' STORED AS TEXTFILE;
+create table omsdeldetail(id varchar(30),colInStr string,createTime timestamp,pgNum varchar(30)) PARTITIONED BY (ds string) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n' STORED AS TEXTFILE;

@@ -1,0 +1,65 @@
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+    <schema name="MEMBERDBPROD" checkSQLschema="false" sqlMaxLimit="1000000">
+        <table name="lp_member" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" rule="mod-long-memberNoProd" primaryKey="member_no" secondaryIndexKeys="telphone::member_account::partner_no::card_no">
+            <childTable name="lp_member_address" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="member_no::partner_no"/>
+            <childTable name="lp_member_capital_account" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no::card_no"/>
+            <childTable name="lp_member_change_details" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no"/>
+            <childTable name="lp_member_extend" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no::email"/>
+            <childTable name="lp_member_log" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no"/>
+            <childTable name="lp_member_rela_accounts" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="member_no::chanel_code::outer_user_id::outer_unionid"/>
+	        <childTable name="lp_marketgrouprelamembers" joinKey="lpmemberno" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="lpmemberno::lpgroupid"/>
+	        <childTable name="lp_member_voucher" joinKey="member_no" parentKey="member_no" primaryKey="ID" />
+        </table>
+        <table name="lp_member_param" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="mkey" type="global"/>
+        <table name="lppz_admin" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lppz_admin_role" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lppz_menu" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lppz_menu_admin" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lppz_menu_role" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lppz_role" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lppz_system_log" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+        <table name="lp_marketgroup" dataNode="dnmemprod1,dnmemprod2,dnmemprod3,dnmemprod4,dnmemprod5,dnmemprod6,dnmemprod7,dnmemprod8" primaryKey="ID" type="global"/>
+    </schema>
+    <dataNode name="dnmemprod1" dataHost="member_prod1" database="member_center"/>
+    <dataNode name="dnmemprod2" dataHost="member_prod2" database="member_center"/>
+    <dataNode name="dnmemprod3" dataHost="member_prod3" database="member_center"/>
+    <dataNode name="dnmemprod4" dataHost="member_prod4" database="member_center"/>
+    <dataNode name="dnmemprod5" dataHost="member_prod5" database="member_center"/>
+    <dataNode name="dnmemprod6" dataHost="member_prod6" database="member_center"/>
+    <dataNode name="dnmemprod7" dataHost="member_prod7" database="member_center"/>
+    <dataNode name="dnmemprod8" dataHost="member_prod8" database="member_center"/>
+    
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod1" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.203:3306/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod2" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.203:3307/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod3" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.203:3308/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod4" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.203:3309/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod5" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.202.215:3306/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod6" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.202.215:3307/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod7" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.202.215:3308/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="3000" minCon="300" name="member_prod8" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.202.215:3309/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="a5AF2WQvcboO6" user="root"/>
+    </dataHost>
+</mycat:schema>

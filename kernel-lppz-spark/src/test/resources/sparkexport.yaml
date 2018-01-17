@@ -1,0 +1,5 @@
+!!com.lppz.spark.scala.bean.SparkExportBean
+ sqlBean: {schema: omsext, sql: "select * from (select row_number()
+        over (order by id) num,id as oid,* from omsextorders
+        where ds='#month#') where num>=#start# and num<=#end# and ds='#month#'",
+      tableName: hbaseomsinterface, total4Once: 11, partionNum: 5}

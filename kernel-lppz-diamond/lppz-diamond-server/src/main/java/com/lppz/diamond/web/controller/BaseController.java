@@ -1,0 +1,32 @@
+package com.lppz.diamond.web.controller;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+abstract public class BaseController {
+	protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
+	
+	@ExceptionHandler()
+	public void handleException(Exception exception, HttpServletRequest request, HttpServletResponse response) {
+		logger.error(exception.getMessage(), exception);
+		HttpSession httpSession = request.getSession();
+		
+		if(exception instanceof CannotGetJdbcConnectionException) {
+			httpSession.setAttribute("message", "不能获取数据库连接，请联系管理员！");
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		RequestDispatcher rd =  request.getSession().getServletContext().getRequestDispatcher("/error"); 
+        try {
+			rd.forward(request, response);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
+}

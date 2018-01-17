@@ -1,0 +1,13 @@
+yum install openssl openssl-devel popt popt-devel libnl-devel kenel-devel
+
+[root@localhostkeepalived-1.1.20]#cp /usr/local/etc/rc.d/init.d/keepalived /etc/init.d/
+[root@localhostkeepalived-1.1.20]# cp /usr/local/etc/sysconfig/keepalived /etc/sysconfig/
+[root@localhost keepalived-1.1.20]# mkdir /etc/keepalived
+[root@localhostkeepalived-1.1.20]#cp /usr/local/etc/keepalived/keepalived.conf/etc/keepalived/                           
+[root@localhost keepalived-1.1.20]# cp /usr/local/sbin/keepalived /usr/sbin/
+       
+ipvsadm -C    
+ipvsadm -A -t 10.8.102.237:7066 -s rr
+ipvsadm -at 10.8.102.237:7066 -r 10.8.202.211:7066 -g
+ipvsadm -at 10.8.102.237:7066 -r 10.8.202.212:7066 -g
+ipvsadm -at 10.8.102.237:7066 -r 10.8.202.213:7066 -g

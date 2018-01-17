@@ -1,0 +1,1 @@
+redis-cli -c -h 10.8.102.204 -p 6380 info | grep -e "connected_clients" -e "blocked_clients" -e "used_memory_human" -e "used_memory_peak_human" -e "rejected_connections" -e "evicted_keys" -e "instantaneous"

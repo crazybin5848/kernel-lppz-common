@@ -1,0 +1,24 @@
+{
+datasource-oms-log: !!com.lppz.core.datasource.LppzBasicDataSource {
+dataSourceClassName: 'com.mysql.jdbc.jdbc2.optional.MysqlDataSource',
+dataSourceProperties: {user: 'root',password: 'root'},
+dataSourceJNDI: ,
+isCobar: 'true',
+needLog: 'true',
+schemaName: 'MEMBERDB',
+catgroup: 'app',
+protocol: 'mysql',
+zkServerAddr: '192.168.37.228:2181,192.168.32.229:2181,192.168.32.230:2181',
+zkMycatClusterName: 'mycat-cluster-member-test',
+nodePrefix: 'mycat_fz_',
+configLocation: 'classpath:mybatis-config.xml',
+mapperLocation: 'classpath:indexmap/*.xml',
+baseScanPackge: 'io.mycat.sencondaryindex.dao',
+autoCommit: 'true',
+connectionTimeout: '20000',
+idleTimeout: '180000',
+maxLifetime: '360000',
+maximumPoolSize: '50',
+minimumIdle: '5'
+}
+}

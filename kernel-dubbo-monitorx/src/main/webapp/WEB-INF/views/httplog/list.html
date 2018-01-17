@@ -1,0 +1,166 @@
+#tag layout_block("headContent")
+<!-- daterange picker -->
+<link href="resources/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<!-- daterangepicker -->
+<script src="resources/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="resources/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+
+#end
+
+#tag layout_block("mainContent")
+<section class="content-header">
+  <h1>
+    HttpLogList
+    <small>overview</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href=""><i class="fa fa-home"></i> Home</a></li>
+    <li class="active">Services</li>
+  </ol>
+</section>
+#define(String total)
+#set(total= String::valueOf(data.count % data.pageSize==0?data.count/data.pageSize:data.count/data.pageSize+1))
+<!-- Main content -->
+<style>
+<!--
+td{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"}
+.popover {
+word-wrap: break-word;
+}
+-->
+</style>
+<section class="content">
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-primary">
+        <div class="box-header">
+          <h3 class="box-title">Lists of httplog</h3>
+          
+        <form class="form-inline" method="get" action="httpLog" id="myForm">
+		  <div class="form-group">
+		    <label for="hostUri">hostUri</label>
+		    <input type="text" class="form-control" name="hostUri" placeholder="http://xxxxx/services/xxxx" value="${vo.hostUri}">
+		  </div>
+		  <div class="form-group">
+		    <label for="httpMethodType">httpMethodType</label>
+		    <select class="form-control" name="httpMethodType">
+		      <option value="" selected="selected">请选择...</option>
+			  <option value="GET">GET</option>
+			  <option value="POST">POST</option>
+			</select>
+		  </div>
+		  <div class="form-group">
+		    <label for="protocol">protocol</label>
+		    <input type="text" class="form-control" name="protocol" placeholder="dubbo,rest" value="${vo.protocol}">
+		  </div>
+		  <div class="form-group">
+		    <label for="invokeDateTime">invokeDateTime</label>
+		    <input class="pull-right" type="text" name="invokeDateTime" value="${vo.invokeDateTime}" />
+		  </div>
+		  <input type="hidden" name="page">
+		  <button type="button" class="btn btn-lg btn-primary btn-sm">查询</button>
+	      <button type="button" class="btn btn-lg btn-info btn-sm">重置</button>
+		</form>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover table-striped" style="table-layout:fixed">
+            <thead>
+            <tr>
+              <th width="5%">协议</th>
+              <th width="10%">服务类</th>
+              <th width="5%">方法</th>
+              <th width="7%">消费者</th>
+              <th width="7%">生产者</th>
+              <th width="5%">服务类型</th>
+              <th width="10%">调用时间</th>
+              <th width="10%">访问路径</th>
+              <th width="20%">requestBody</th>
+              <th width="20%">responseBody</th>
+            </tr>
+            </thead>
+            <tbody>
+            #for (row : data.list)
+            <tr>
+              <td>${row.protocol}</td>
+              <td>${row.service}</td>
+              <td>${row.httpMethodType}</td>
+              <td>${row.consumer}</td>
+              <td>${row.provider}</td>
+              <td>${row.type}</td>
+              <td>${row.invokeDateTime}</td>
+              <td data-container="body" data-toggle="popover" data-placement="bottom" data-content="${row.hostUri}" title="hostUri">${row.hostUri}</td>
+              <td  data-container="body" data-toggle="popover" data-placement="bottom" data-content='${row.requestBody}' title="requestBody">${row.requestBody}</td>
+              <td  data-container="body" data-toggle="popover" data-placement="bottom" data-content='${row.responseBody}' title="responseBody">${row.responseBody}</td>
+            </tr>
+            #end
+            </tbody>
+            <tfoot>
+            	<tr>
+            		<td colspan="12" align="center">
+            			<ul class="pagination">
+						  <li><a href="javascript:void(0);" class='goPage' value="${data.pageNum-1==0?1:data.pageNum-1}">&laquo;</a></li>
+						   #for (int i:range(data.pageNum / 10 ==0?1:data.pageNum / 10 *10+1 ,Integer::valueOf(total)))
+						  
+						  	#if(i==data.pageNum)
+						  	<li class="active"><a href="javascript:void(0);" class='goPage' value="${i}">${i}</a></li>
+						  	#else
+						  	<li><a href="javascript:void(0);" class='goPage' value="${i}">${i}</a></li>
+						  	#end
+						  	
+						  	#break(i % 10==0)
+						  
+						  #end
+						  
+						  <li><a href="javascript:void(0);" class='goPage' value="${data.pageNum+1>Integer::valueOf(total)?total:data.pageNum+1}">&raquo;</a></li>
+						</ul>
+            		</td>
+            	</tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+    </div>
+  </div>
+
+</section>
+<script type="text/javascript">
+
+$(function(){
+	$('input[name="invokeDateTime"]').daterangepicker({
+        singleDatePicker: true,
+        timePicker: true,
+        timePicker24Hour:true,
+        //timePickerSeconds:true,
+        showDropdowns: true,
+        format:'YYYY-MM-DD HH:mm:ss'
+    }, 
+    null);
+	
+	$("[data-toggle='popover']").popover({
+		html:true,
+		animation:true,
+		trigger:'hover'
+	});
+	
+	$(".btn-primary").on('click',function(){
+		$('#myForm').submit();
+	});
+	$(".btn-info").on('click',function(){
+		$('input').each(function(){
+			$(this).val('');
+		});
+	});
+	$(".goPage").on('click',function(){
+		$('input[name=page]').val($(this).attr('value'));
+		$('#myForm').submit();
+	});
+});
+
+</script>
+#end
+
+#include ("../common/main_layout.html")

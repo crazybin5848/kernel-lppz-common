@@ -1,0 +1,60 @@
+{
+  "template" : "stocksynlog-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+        "productId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "whouse" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "stockType" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "inOutFlag" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "synWay" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "incrementSynWay" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "synQuantity" : {  
+            "type" : "integer",
+            "index" : "not_analyzed"  
+          },  
+          "synDate" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },  
+          "extend1" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "extend2" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "extend3" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          }
+      }
+    }
+  }
+}

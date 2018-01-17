@@ -1,0 +1,47 @@
+<configuration>
+
+<!--     	<property name="LOG_HOME" value="/logs/oms-edb" /> -->
+	<appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_HOME}/kernel-lppz-dal-2ndIndex-%d{yyyy-MM-dd}.log</FileNamePattern>
+<!-- 			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"> -->
+<!--     		<MaxFileSize>100MB</MaxFileSize> -->
+<!--    			</TimeBasedFileNamingAndTriggeringPolicy>   -->
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>[%d{HH:mm:ss:SSS}][%5p]- %m%n</pattern>
+
+			<pattern>[%d{HH:mm:ss:SSS}][%5p][%c:%L] %m%n</pattern>
+
+		</layout>
+		</appender>
+
+   	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d [%-5level][%t][%c][%X{tenant}][%X{requestId}] %m%n</Pattern>
+		</encoder>
+	</appender>
+
+	<logger name="javax.validation" level="info" />
+
+	<logger name="org.springframework.beans.factory" level="warn"/>
+	<logger name="org.springframework.transaction" level="info" />
+	<logger name="org.springframework.validation" level="info" />
+	<logger name="org.springframework.test" level="warn" />
+	<logger name="org.springframework.aop.interceptor.PerformanceMonitorInterceptor" level="trace" appender-ref="logfile"/>
+
+	<!-- DB statements -->
+	<logger name="org.springframework.jdbc.core.JdbcTemplate" level="info" />
+	<logger name="com.ibatis" level="DEBUG" />  
+	<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="DEBUG" />  
+	<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG" />  
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" />  
+	<logger name="java.sql.Connection" level="DEBUG" />  
+	<logger name="java.sql.Statement" level="DEBUG" />  
+	<logger name="java.sql.PreparedStatement" level="DEBUG" />
+
+    <root level="info">
+        <appender-ref ref="logfile"/>
+         <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

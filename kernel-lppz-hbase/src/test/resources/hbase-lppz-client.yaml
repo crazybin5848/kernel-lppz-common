@@ -1,0 +1,7 @@
+!!com.lppz.configuration.hbase.HBaseConfigYamlBean {
+zkClientPort: '2181',
+zkQuorum: 'hanode6,hanode7,hanode3,hanode4,hanode5',
+hbaseRpcTimeOut: 30000,
+hbaseScanTimeoutPeriod: 60000,
+hbaseClientScannerCaching: 20
+}

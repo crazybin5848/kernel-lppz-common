@@ -1,0 +1,21 @@
+
+storm.cluster.mode: "local"
+#storm.cluster.mode: "distributed"
+storm.zookeeper.servers: 
+ - "eskafka1"
+ - "eskafka2"
+ - "eskafka3"
+storm.zookeeper.port: 2181
+nimbus.host: "10.6.30.133"
+storm.zookeeper.root: "/jstorm"
+topology.spout.parallel: 1
+topology.bolt.parallel: 2
+topology.message.timeout.secs: 300
+topology.workers: 1
+kafka.zookeeper.hosts: eskafka1:2181,eskafka2:2181,eskafka3:2181
+kafka.broker.hosts: eskafka1:9097,eskafka2:9097,eskafka3:9097
+kafka.topic: logbacklog
+kafka.storm.zookeeper.root: /logbacklog
+kafka.broker.partitions: 7
+
+

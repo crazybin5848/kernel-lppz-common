@@ -1,0 +1,57 @@
+{
+  "template" : "logback-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 21,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+        "threadName" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"
+          },  
+          "loggerName" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"
+          },  
+          "loggerContextVO" : {  
+            "type" : "string",
+            "index" : "not_analyzed"
+          },  
+          "level" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"
+          },  
+          "formattedMessage" : {  
+            "type" : "string",
+			"analyzer": "ik"         
+          },  
+          "argumentArray" : {  
+            "type" : "string",
+            "index" : "not_analyzed"
+          },  
+          "throwableProxy" : {  
+            "type" : "string",
+            "index" : "not_analyzed"
+          },  
+          "marker" : {  
+            "type" : "string",
+            "index" : "not_analyzed"
+          },  
+          "callerDataArray" : {  
+            "type" : "string",
+            "index" : "not_analyzed"
+          },  
+          "timeStamp" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed",
+        	  "doc_values" : true  
+          }
+      }
+    }
+  }
+}

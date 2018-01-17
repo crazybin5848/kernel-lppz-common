@@ -1,0 +1,60 @@
+{
+  "template" : "lackorderlog-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+        "mergeorderid" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "seq" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "orderid" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "orderlineid" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "werehousecode" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "productcode" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "productname" : {  
+            "type" : "string",
+            "index" : "not_analyzed"  
+          },  
+          "mergeflag" : {  
+        	  "type" : "boolean",
+        	  "index" : "not_analyzed"
+          },    
+          "receivetime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },  
+          "issuccess" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "message" : {  
+        	  "type" : "string",
+        	  "analyzer": "ik"  
+          } 
+      }
+    }
+  }
+}

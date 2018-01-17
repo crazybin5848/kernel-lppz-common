@@ -1,0 +1,77 @@
+{
+  "template" : "interfacelog-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+          "in_messageId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "interfaceLogId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "sourceType" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "targetType" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "messageId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "interfaceId" : {  
+            "type" : "string",
+            "index" : "not_analyzed"  
+          },  
+          "interfaceName" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },
+          "resultFlag" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },
+		  "piFlag" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },
+          "startDate" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },
+          "endDate" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },		  
+          "interfaceLogDetailId" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "lineNo" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "errorKey" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "message" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          } 
+      }
+    }
+  }
+}

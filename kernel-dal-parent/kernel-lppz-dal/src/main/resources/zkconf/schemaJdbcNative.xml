@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+	<schema name="TESTDB" checkSQLschema="false" sqlMaxLimit="100">
+		<table name="test_table" primaryKey="ID" 
+			dataNode="dntest244,dntest245,dntest246" rule="mod-long" />
+		<table name="customer" primaryKey="ID" dataNode="dntest244,dntest245,dntest246"
+			rule="mod-long" secondaryIndexKeys="name::sex">
+			<childTable name="orders" primaryKey="ID" joinKey="customer_id"
+				parentKey="id" secondaryIndexKeys="state::outorderid">
+				<childTable name="order_items" primaryKey="ID" joinKey="order_id" 
+					parentKey="id" rootParentKey="root_id" secondaryIndexKeys="sku"/>
+			</childTable>
+			<childTable name="customer_addr" primaryKey="ID" joinKey="customer_id"
+				parentKey="id" secondaryIndexKeys="crdate::addr"/>
+		</table>
+	</schema>
+	<dataNode name="dntest244" dataHost="test244" database="test" />
+	<dataNode name="dntest245" dataHost="test245" database="test" />
+	<dataNode name="dntest246" dataHost="test246" database="test" />
+	
+	<dataHost name="test244" balance="0" maxCon="30000" minCon="50" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000">  
+        <heartbeat></heartbeat>  
+        <writeHost host="hostM1" url="jdbc:mysql://192.168.37.244:3306/test?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" user="root" password="KTqHDMg8r3q1w"></writeHost>  
+    </dataHost>  
+	<dataHost name="test245" balance="0" maxCon="30000" minCon="50" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000">  
+        <heartbeat></heartbeat>  
+        <writeHost host="hostM1" url="jdbc:mysql://192.168.37.245:3306/test?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" user="root" password="KTqHDMg8r3q1w"></writeHost>  
+    </dataHost>  
+	<dataHost name="test246" balance="0" maxCon="30000" minCon="50" dbType="mysql" dbDriver="jdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="false" connectionTimeout="300000" maxLifetime="1800000">  
+        <heartbeat></heartbeat>  
+        <writeHost host="hostM1" url="jdbc:mysql://192.168.37.246:3306/test?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull" user="root" password="KTqHDMg8r3q1w"></writeHost>  
+    </dataHost>  
+</mycat:schema>

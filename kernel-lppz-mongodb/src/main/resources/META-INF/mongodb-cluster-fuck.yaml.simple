@@ -1,0 +1,11 @@
+!!com.lppz.mongodb.bean.BaseMongoConfigBean
+connectTimeout: 25000
+db: test
+maxConnectionLifeTime: 150000
+maxWaitTime: 300000
+poolSize: 200
+serverAddress:
+- {port: '50000', host: 192.168.37.242}
+- {port: '50000', host: 192.168.37.245}
+- {port: '50000', host: 192.168.37.246}
+socketTimeout: 100000

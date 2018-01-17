@@ -1,0 +1,21 @@
+bbbb: !!com.lppz.mongodb.bean.BaseMongoConfigBean
+  connectTimeout: 25000
+  maxConnectionLifeTime: 150000
+  maxWaitTime: 300000
+  poolSize: 200
+  serverAddress:
+  - {port: '50000', host: 192.168.37.242}
+  - {port: '50000', host: 192.168.37.243}
+  - {port: '50000', host: 192.168.37.244}
+  socketTimeout: 100000
+aaaa: !!com.lppz.mongodb.bean.BaseMongoConfigBean
+  connectTimeout: 25000
+  maxConnectionLifeTime: 150000
+  maxWaitTime: 300000
+  poolSize: 200
+  serverAddress:
+  - {port: '50000', host: 192.168.37.242}
+  - {port: '50000', host: 192.168.37.243}
+  - {port: '50000', host: 192.168.37.244}
+  socketTimeout: 100000
+

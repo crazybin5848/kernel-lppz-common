@@ -1,0 +1,13 @@
+{
+com.lppz.dubbo.httplog.test.TestHttpInterface: !!com.lppz.dubbox.ws.DubboWsReferBean {
+url: 'webservice://10.6.30.133:28878/ws/com.lppz.dubbo.httplog.test.TestHttpInterface',
+parameters: '',
+username: 'ffuck',
+passwd: 'rfrf2234',
+group: '',
+version: '1.0.0',
+timeout: 1000000,
+connection: 100,
+needLog: true
+}
+}

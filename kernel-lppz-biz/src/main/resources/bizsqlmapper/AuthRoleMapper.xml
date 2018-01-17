@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lppz.oms.persist.AuthRoleMapper">
+	<resultMap type="com.lppz.oms.api.dto.AuthRole" id="selectedRoleMap">
+		<result property="authRoleId" column="authroleid"/>
+		<result property="roleCode" column="rolecode"/>
+		<result property="roleName" column="rolename"/>
+		<result property="roleDesc" column="roledesc"/>
+		<result property="roleLevel" column="rolelevel"/>
+		<result property="enableFlg" column="enableflg"/>
+		<result property="creator" column="creator"/>
+		<result property="createTime" column="createtime"/>
+		<result property="updator" column="updator"/>
+		<result property="updateTime" column="updatetime"/>
+		<result property="superRoleCode" column="superrolecode"/>
+	</resultMap>
+
+
+	<select id="findPaged" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+			authroleid AS authRoleId,
+			updatetime AS updateTime,
+			updator,
+			rolecode AS roleCode,
+			rolelevel AS roleLevel,
+			superrolecode AS superRoleCode,
+			enableflg AS enableFlg,
+			creator,
+			roledesc AS roleDesc,
+			rolename AS roleName,
+			creationtime AS creatorTime
+		FROM
+			authrole
+		WHERE
+			1 = 1
+			<if test="rolecode != null and rolecode !=''">
+			AND rolecode like concat('%', #{rolecode}, '%')
+			</if>
+			<if test="rolename != null and rolename !=''">
+			AND rolename like concat('%', #{rolename}, '%')
+			</if>
+			<if test="enableflg != null and enableflg !=''">
+			AND enableflg = #{enableflg}
+			</if>
+			
+		ORDER BY
+			rolecode
+	</select>
+	
+	<select id="getPermissions" resultType="com.lppz.oms.api.dto.PermissionDto">
+		SELECT
+			p.permcode AS permcode,
+			p.menuname AS menuname,
+			p.parentcode AS parentcode
+		FROM
+			authpermission AS p
+		WHERE
+			(
+				p.visible = '1'
+				OR p.visible = '3'
+			)
+	</select>
+	
+	<select id="getPermissionsByRolecode" parameterType="java.lang.String" resultType="com.lppz.oms.api.dto.PermissionDto">
+		SELECT DISTINCT
+			p.permcode AS permcode
+		FROM
+			authpermission AS p
+		JOIN authrolepermissionrel AS p2r ON p.permcode = p2r.permcode
+		JOIN authrole AS r ON r.rolecode = p2r.authroleid
+		WHERE
+			r.rolecode = #{rolecode}
+		AND p.menuurl != ''
+		AND (
+			p.visible = '1'
+			OR p.visible = '3'
+		)
+	</select>
+	
+	<select id="getSuperRole" resultType="java.util.Map">
+		SELECT
+			rolecode,
+			rolename
+		FROM
+			authrole
+		WHERE
+			(
+				superrolecode IS NULL
+				OR superrolecode = ''
+				OR superrolecode = 'null'
+			)
+		AND rolelevel = '1'
+	</select>
+	
+	<select id="getByRoleCode" parameterType="java.lang.String" resultMap="selectedRoleMap">
+		SELECT
+			r.authroleid,
+			r.rolecode,
+			r.rolename,
+			r.roledesc,
+			r.rolelevel,
+			r.enableflg,
+			r.creator,
+			r.createtime,
+			r.updator,
+			r.updatetime,
+			r.superrolecode
+		FROM
+			authrole r
+		WHERE
+			r.rolecode = #{rolecode}
+	</select>
+	
+	<update id="updateRole" parameterType="com.lppz.oms.api.dto.AuthRole">
+	UPDATE authrole
+	   SET 
+		rolecode = #{roleCode}, 
+		rolename = #{roleName}, 
+		roledesc = #{roleDesc}, 
+		rolelevel = #{roleLevel},
+		enableflg = #{enableFlg}, 
+		updator = #{updator}, 
+		updatetime = #{updateTime}, 
+		superrolecode = #{superRoleCode}
+	WHERE
+		id = concat('single|RoleData|', #{authRoleId})
+	</update>
+	
+	<delete id="deleteRolePermissionRel" parameterType="java.lang.String">
+	delete from authrolepermissionrel where authroleid = #{authRoleId}
+	</delete>
+	
+	<insert id="createRolePermissionRel" parameterType="com.lppz.oms.api.dto.RolePermissionDto">
+	insert into authrolepermissionrel(authrolepermrelid, authroleid, permCode, creator, updator, id, typecode, tenant) 
+	values (#{authrolepermrelid}, #{authroleid}, #{permCode}, #{creator}, #{updator}, concat('single|RolePermissionData|', #{authrolepermrelid}), 'RolePermissionData', 'single')
+	</insert>
+	
+	<insert id="createRole" parameterType="com.lppz.oms.api.dto.AuthRole">
+	insert into authrole(authroleid, rolecode, superrolecode, rolename, rolelevel, roledesc, enableflg, creator, updator, id, typecode, tenant,updatetime,creationtime)
+	values (#{authRoleId}, #{roleCode}, #{superRoleCode}, #{roleName}, #{roleLevel}, #{roleDesc}, #{enableFlg}, #{creator}, #{updator}, concat('single|RoleData|', #{authRoleId}), 'RoleData', 'single',now(),now())
+	</insert>
+	
+	<select id="getAllRole" resultType="com.lppz.oms.api.dto.RoleSelect">
+	SELECT rolecode,rolename FROM authrole
+	</select>
+	
+	<select id="getAllEnableRole" resultType="com.lppz.oms.api.dto.RoleSelect">
+	SELECT rolecode,rolename FROM authrole where enableflg='1'
+	</select>
+	
+	<select id="getRoleByUser" parameterType="java.lang.String" resultType="com.lppz.oms.api.dto.AuthRole">
+	  select authroleid as roleCode from authuserrolerel where authuserid = #{userId}
+	</select>
+	
+	<insert id="createUserRoleRel" parameterType="com.lppz.oms.api.dto.UserRoleDto">
+	INSERT INTO authuserrolerel (
+		authuserrolerelid,
+		authuserid,
+		authroleid,
+		creator,
+		updator,
+		id,
+		typecode,
+		tenant
+	)
+	VALUES
+	(
+		#{authuserrolerelid},
+		#{authuserid},
+		#{authroleid},
+		#{creator},
+		#{updator},
+		concat('single|UserRoleData|', #{authuserrolerelid}),
+		'UserRoleData',
+		'single'
+	);
+	</insert>
+	
+	<update id="authUser" parameterType="java.util.Map">
+	UPDATE authuserrolerel
+	SET authroleid =#{authroleid}, 
+		updatetime =#{updatetime}, 
+		creator =#{creator},
+		authuserrolerelid =#{authuserrolerelid}
+	WHERE
+		authuserid =#{authuserid}
+	</update>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+  <properties>
+    <property name="logPath">logbiz</property>
+  </properties>
+  
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+      <!-- <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" /> -->
+      <!-- <PatternLayout pattern="%-d [%t] %-5p %c{1}:%L - %m%n" /> -->
+    </Console>
+    
+  <File name="LogFile" filename="${logPath}/kernel-lppz-hive.log">
+  <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+    </File>
+    
+   <!--  <RollingFile name="RollingFile" filename="${logPath}/kernel-lppz-hive.log"
+      filepattern="${logPath}/%d{YYYYMMddHHmmss}-kernel-lppz-hive.log">
+  <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+      <Policies>
+        <SizeBasedTriggeringPolicy size="100 MB"/>
+      </Policies>	
+       <DefaultRolloverStrategy max="20"/>
+    </RollingFile> -->
+    
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="Console" />
+       <AppenderRef ref="LogFile" /> 
+      <!--<AppenderRef ref="RollingFile" />-->
+    </Root>
+  </Loggers>
+</Configuration>

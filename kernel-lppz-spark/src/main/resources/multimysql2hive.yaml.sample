@@ -1,0 +1,60 @@
+!!com.lppz.spark.bean.SparkHiveSqlBean {
+configBean: !!com.lppz.spark.bean.SparkSqlConfigBean {
+ rdbmsjdbcUrl: 'jdbc:mysql://192.168.37.246:3306/#schema#?useUnicode=true&characterEncoding=UTF8',
+ rdbmsjdbcUser: 'root',
+ rdbmsjdbcPasswd: 'KTqHDMg8r3q1w',
+ rdbmsdbDriver: 'com.mysql.jdbc.Driver',
+ schema: 'omsext'
+},
+mysqlBean: !!com.lppz.spark.bean.SparkMysqlDmlBean {
+ tableName: 'orders',
+ partitionColumn: 'sparkid',
+ numPartitions: '30',
+ relateKey: 'myorder',
+ total4Once: '1000',
+ sql: "select * from orders where issuedate<'2015-09-11 23:59:59'"
+},
+sourcebean: !!com.lppz.spark.bean.Rdbms2HDfsBean {
+ hiveschema: 'hivetest',
+ hivetableName: 'omsstocksparkPar',
+ mode: 'true'
+},
+sparkMapbean: {stock2: !!com.lppz.spark.bean.SparkHiveSqlBean {
+configBean: !!com.lppz.spark.bean.SparkSqlConfigBean {
+ rdbmsjdbcUrl: 'jdbc:mysql://10.6.30.43:3306/#schema#?useUnicode=true&characterEncoding=UTF8',
+ rdbmsjdbcUser: 'root',
+ rdbmsjdbcPasswd: 'KTqHDMg8r3q1w',
+ rdbmsdbDriver: 'com.mysql.jdbc.Driver',
+ schema: 'test'
+},
+mysqlBean: !!com.lppz.spark.bean.SparkMysqlDmlBean {
+ tableName: 'omsstock2',
+ partitionColumn: 'id',
+ numPartitions: '50',
+ total4Once: '100000',
+ sql: 'select * from omsstock2'
+},
+sourcebean: !!com.lppz.spark.bean.Rdbms2HDfsBean {
+ hiveschema: 'hivetest',
+ hivetableName: 'omsstocksparkPar2',
+ mode: 'true',
+ hpcList: [{col: "ds",type: "string",orginalCol: "cdate"}]
+}
+},
+stock3: !!com.lppz.spark.bean.SparkHiveSqlBean {
+mysqsqlUseMain: true,
+mysqlBean: !!com.lppz.spark.bean.SparkMysqlDmlBean {
+ tableName: 'omsstock2',
+ partitionColumn: 'id',
+ numPartitions: '30',
+ total4Once: '5000000',
+ sql: 'select * from omsstock2'
+},
+sourcebean: !!com.lppz.spark.bean.Rdbms2HDfsBean {
+ hiveschema: 'hivetest',
+ hivetableName: 'omsstocksparkPar3',
+ mode: 'true'
+}
+}
+}
+}

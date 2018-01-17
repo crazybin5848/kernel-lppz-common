@@ -1,0 +1,40 @@
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+    <schema name="MEMBERDB" checkSQLschema="false" sqlMaxLimit="1000000">
+        <table name="lp_member" dataNode="dnmember1,dnmember2,dnmember3" rule="mod-long-memberNo" primaryKey="member_no" secondaryIndexKeys="telphone::member_account::partner_no::card_no::email">
+            <childTable name="lp_member_address" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="member_no::partner_no"/>
+            <childTable name="lp_member_capital_account" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no::card_no"/>
+            <childTable name="lp_member_change_details" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no"/>
+            <childTable name="lp_member_extend" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no"/>
+            <childTable name="lp_member_log" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="partner_no::member_no"/>
+            <childTable name="lp_member_rela_accounts" joinKey="member_no" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="member_no::chanel_code::outer_user_id::outer_unionid"/>
+            <childTable name="lp_marketgrouprelamembers" joinKey="lpmemberno" parentKey="member_no" primaryKey="ID" secondaryIndexKeys="lpmemberno::lpgroupid"/>
+            <childTable name="lp_member_voucher" joinKey="member_no" parentKey="member_no" primaryKey="ID"/>
+       </table>
+        <table name="lp_marketgroup" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lp_member_param" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="mkey" type="global"/>
+        <table name="lppz_admin" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lppz_admin_role" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lppz_menu" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lppz_menu_admin" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lppz_menu_role" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lppz_role" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+        <table name="lppz_system_log" dataNode="dnmember1,dnmember2,dnmember3" primaryKey="ID" type="global"/>
+    </schema>
+    
+    <dataNode name="dnmember1" dataHost="member_center169" database="member_center"/>
+    <dataNode name="dnmember2" dataHost="member_center170" database="member_center"/>
+    <dataNode name="dnmember3" dataHost="member_center168" database="member_center"/>
+    <dataHost balance="0" maxCon="50000" minCon="50" name="member_center169" dbType="mysql" dbDriver="hikariJdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="true" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.169:3306/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="123456" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="50000" minCon="50" name="member_center170" dbType="mysql" dbDriver="hikariJdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="true" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.170:3306/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="123456" user="root"/>
+    </dataHost>
+    <dataHost balance="0" maxCon="50000" minCon="50" name="member_center168" dbType="mysql" dbDriver="hikariJdbc" dataSourceClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" autoCommit="true" connectionTimeout="300000" maxLifetime="1800000" idleTimeout="600000">
+        <heartbeat></heartbeat>
+        <writeHost host="hostM1" url="jdbc:mysql://10.8.102.168:3306/member_center?useConfigs=maxPerformance&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;autoReconnect=true" password="123456" user="root"/>
+    </dataHost>
+</mycat:schema>

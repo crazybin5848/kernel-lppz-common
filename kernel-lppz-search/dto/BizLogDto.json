@@ -1,0 +1,85 @@
+{
+  "template" : "bizlog-*",
+  "settings" : {
+    "index.refresh_integererval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+		  "logType" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          }, 
+		  "appId" : {  
+            "type" : "integer",  
+            "index" : "not_analyzed"  
+          }, 
+		  "appName" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          }, 
+          "className" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "methodName" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },
+		  "costTime" : {  
+            "type" : "long",  
+            "index" : "not_analyzed"  
+          },
+          "remoteIp" : {  
+            "type" : "ip",  
+            "index" : "not_analyzed"  
+          },		  
+          "localIp" : {  
+            "type" : "ip",
+            "index" : "not_analyzed" 
+          },  
+		  "exceptionFlag" : {  
+            "type" : "integer",
+            "index" : "not_analyzed" 
+          },
+		  "paramInfo" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },
+		  "refCode" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },
+		  "resultInfo" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },
+		  "exceptionInfo" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },
+		  "logHeader" : {  
+            "type" : "string",
+            "index" : "not_analyzed" 
+          },  
+          "createTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },
+          "consumerTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },		  
+          "keyword" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          }
+      }
+    }
+  }
+}

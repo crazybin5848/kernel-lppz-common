@@ -1,0 +1,12 @@
+{
+com.lppz.stock.engine.until.SIFEEDBACKOUT: !!com.lppz.dubbox.ws.DubboWsReferBean {
+url: 'webservice://pi-dev.lp.com:50000/XISOAPAdapter/MessageServlet',
+parameters: 'senderParty=&senderService=HYBRIS&receiverParty=&receiverService=&interface=SI_FEEDBACK_OUT&interfaceNamespace=urn%3Alppz.com%3Aoutbound',
+username: 'ZHY_RFC',
+passwd: '12345678',
+group: '',
+version: '1.0.0',
+timeout: 10000,
+connection: 100
+}
+}

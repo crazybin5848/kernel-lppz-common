@@ -1,0 +1,2 @@
+./bin/jstorm jar kernel-lppz-jstorm-1.0.0-SNAPSHOT.jar com.alipay.dw.jstorm.kafka.KafkaTopology /Users/zoubin/Documents/binlppzsap/kernel-lppz-microservice/kernel-lppz-jstorm/src/main/resources/META-INF/simple.yaml
+flume-ng agent -n producer -c conf -f flume-kafka-sink.properties -Dflume.root.logger=ERROR,console

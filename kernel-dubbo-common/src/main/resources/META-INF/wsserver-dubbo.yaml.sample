@@ -1,0 +1,6 @@
+{
+com.lppz.dubbox.rest.RestDubboStockComponent: !!com.lppz.dubbox.ws.DubboWsReferBean {
+username: 'ffuck',
+passwd: 'rfrf2234'
+}
+}

@@ -1,0 +1,56 @@
+{
+  "template" : "lppzexbo-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 6,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+          "name" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "desc" : {  
+            "type" : "string",  
+            "analyzer" : "ik" 
+          },  
+          "stackTrace" : {  
+            "type" : "string",
+            "analyzer" : "ik"
+          },  
+          "ip" : {  
+            "type" : "ip",  
+            "index" : "not_analyzed"  
+          },  
+          "text1" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "text2" : {  
+            "type" : "string",
+            "index" : "not_analyzed"  
+          },   
+          "createtime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },  
+          "id" : {  
+        	  "type" : "long",
+        	  "index" : "not_analyzed"  
+          },  
+          "sendflag" : {  
+        	  "type" : "integer",
+        	  "index" : "not_analyzed"  
+          },  
+          "paramStrings" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          } 
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "template" : "lppzexceptionlog-*",
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "index.number_of_shards" : 15,  
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "properties" : {
+        "id" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "logName" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "logDesc" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },
+          "createTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },		  
+          "ip" : {  
+            "type" : "ip",
+            "index" : "not_analyzed" 
+          },  
+          "stackTrace" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "exceptionParam" : {  
+            "type" : "string",  
+            "index" : "not_analyzed"  
+          },  
+          "ExceptionParamStr" : {  
+            "type" : "string",
+            "index" : "not_analyzed"  
+          },  
+          "sendFlag" : {  
+        	  "type" : "int",
+        	  "index" : "not_analyzed"
+          },  
+          "operateUser" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "operateTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },  
+          "status" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "orderId" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "porderId" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "outOrderId" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "systemSourcing" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "sourcingLocation" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "sourcingResult" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "endTime" : {  
+        	  "type" : "date",
+        	  "format": "yyyy-MM-dd HH:mm:ss",
+        	  "index" : "not_analyzed"  
+          },  
+          "pkid" : {  
+        	  "type" : "long",
+        	  "index" : "not_analyzed",
+        	  "doc_values" : true
+          },  
+          "returnCode" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "result" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+          },  
+          "userId" : {  
+        	  "type" : "string",
+        	  "index" : "not_analyzed"  
+         }
+      }
+    }
+  }
+}

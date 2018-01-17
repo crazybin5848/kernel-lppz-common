@@ -1,0 +1,9 @@
+!!com.lppz.configuration.es.EsBaseYamlBean {
+esClusterPool: !!com.lppz.configuration.es.EsClusterPool {
+ maxTotal: 1000,
+ maxIdle: 500,
+ maxWaitMillis: 60000
+},
+esclusterNode: [{host: 192.168.37.242,port: 9300},{host: 192.168.37.243,port: 9300},{host: 192.168.37.244,port: 9300},{host: 192.168.37.245,port: 9300},{host: 192.168.37.246,port: 9300},{host: 192.168.37.247,port: 9300}],
+clusterName: "es-lppz-cluster"
+}
